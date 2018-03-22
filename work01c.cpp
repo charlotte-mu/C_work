@@ -10,15 +10,16 @@ typedef struct{
 
 data input(void);
 int add(data,int[]);
-void output(data,int);
+void output(data,int,int[]);
 
 int main(void){
 	data data;
 	int reg[2];
 	int ans;
 	
-	printf("輸入通道大小 = ");
+	printf("輸入牆洞之長、寬(m) = ");
 	scanf("%d %d",&reg[0],&reg[1]);
+	printf("洞寬 %d 洞長 %d \n",reg[0],reg[1]);
 	
 	while(1){
 		data = input();
@@ -26,7 +27,7 @@ int main(void){
 			break;
 		}
 		ans = add(data,reg);
-		output(data,ans);
+		output(data,ans,reg);
 	}
 	
 	system("pause");
@@ -107,28 +108,28 @@ int add(data data,int reg[2]){
 		ans = 6;
 	return ans;
 }
-void output(data data,int ans){
+void output(data data,int ans,int reg[2]){
 	switch(ans){
 		case 0:
-			printf("不通過\n");
+			printf("洞寬 %d 洞長 %d <-- 長 %d 寬 %d 高 %d \n [不通過]\n",reg[0],reg[1],data.l,data.w,data.h);
 			break;
 		case 1:
-			printf("以長 %d 寬 %d 通過\n",data.l,data.w);
+			printf("洞寬 %d 洞長 %d <-- 長 %d 寬 %d 高 %d \n [通過]\n",reg[0],reg[1],data.l,data.w,data.h);
 			break;
 		case 2:
-			printf("以長 %d 高 %d 通過\n",data.l,data.h);
+			printf("洞寬 %d 洞長 %d <-- 長 %d 高 %d 寬 %d \n [通過]\n",reg[0],reg[1],data.l,data.h,data.w);
 			break;
 		case 3:
-			printf("以寬 %d 高 %d 通過\n",data.w,data.h);
+			printf("洞寬 %d 洞長 %d <-- 寬 %d 高 %d 長 %d \n [通過]\n",reg[0],reg[1],data.w,data.h,data.l);
 			break;
 		case 4:
-			printf("以高 %d 寬 %d 通過\n",data.h,data.w);
+			printf("洞寬 %d 洞長 %d <-- 高 %d 寬 %d 長 %d \n [通過]\n",reg[0],reg[1],data.h,data.w,data.l);
 			break;
 		case 5:
-			printf("以高 %d 長 %d 通過\n",data.h,data.l);
+			printf("洞寬 %d 洞長 %d <-- 高 %d 長 %d 寬 %d \n [通過]\n",reg[0],reg[1],data.h,data.l,data.w);
 			break;
 		case 6:
-			printf("以寬 %d 長 %d 通過\n",data.w,data.l);
+			printf("洞寬 %d 洞長 %d <-- 寬 %d 長 %d 高 %d \n [通過]\n",reg[0],reg[1],data.w,data.l,data.h);
 			break;
 	}
 	return ;
