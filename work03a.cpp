@@ -23,6 +23,10 @@ class win{
 			return ans;
 		}
 		//
+		void output(int ans){
+			printf("Åé¿n = %d\n",ans);
+			return ;
+		}
 };
 
 void output(int);
@@ -38,7 +42,7 @@ int main(void){
 			break;
 		}
 		ans = test.add();
-		output(ans);
+		test.output(ans);
 	}
 	
 	system("pause");
@@ -47,8 +51,5 @@ int main(void){
 
 
 
-void output(int ans){
-	printf("Åé¿n = %d\n",ans);
-	return ;
-}
+
 
