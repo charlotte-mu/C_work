@@ -20,7 +20,8 @@ class polar{
 		//
 		void add(void){
 			double ans;
-			ans = sqrt(pow(r[0],2)+pow(r[1],2)-(2*r[0]*r[1]*cos((theta[0]/180*3.1415)-(theta[1]/180*3.1415))));
+			ans = sqrt(pow(r[0],2)+pow(r[1],2)-
+			(2*r[0]*r[1]*cos((theta[0]/180*3.1415)-(theta[1]/180*3.1415))));
 			printf("%.0lf/_%.0lf<-->%.0lf/_%.0lf = %lf\n\n",r[0],theta[0],r[1],theta[1],ans);
 		}
 };
