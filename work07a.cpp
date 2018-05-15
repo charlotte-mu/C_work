@@ -6,7 +6,7 @@ class win1{
 	public:
 		int l;
 		int w;
-		int d;
+		int data[2];
 		//
 		void input(void){
 			printf("輸入牆洞之長、寬(m) = ");
@@ -15,11 +15,13 @@ class win1{
 		}
 		//
 		void add(void){
-			if(l <= w){
-				d = 0;
-			}
-			else{
-				d = 1;
+			int reg;
+			data[0] = l;
+			data[1] = w;
+			if(data[0]>data[1]){
+				reg = data[0];
+				data[0] = data[1];
+				data[1] = reg;
 			}
 		}
 };
@@ -29,6 +31,7 @@ class win2{
 		int l;
 		int w;
 		int h;
+		int data[3];
 		//
 		int input(void){
 			printf("輸入長、寬、高(m)=");
@@ -39,111 +42,80 @@ class win2{
 			return 1;
 		}
 		//
-		int operator>(win1 &win){
-			int ans=0,reg1[3],reg2,a=-1,b=-1,reg3[3],a1=-1,b1=-1;
-			reg1[0] = l;
-			reg1[1] = w;
-			reg1[2] = h;
-			for(int i=0;i<3;i++){
-				reg3[i] = reg1[i];
-			}
+		void add(void){
+			int reg;
+			data[0] = l;
+			data[1] = w;
+			data[2] = h;
 			for(int i=0;i<3;i++){
 				for(int j=0;j<2;j++){
-					if(reg1[j]<reg1[j+1]){
-						reg2 = reg1[j];
-						reg1[j] = reg1[j+1];
-						reg1[j+1] = reg2;
+					if(data[j]>data[j+1]){
+						reg = data[j];
+						data[j] = data[j+1];
+						data[j+1] = reg;
 					}
 				}
 			}
-			for(int i=0;i<3;i++){
-				if(reg1[i]<=reg.d[0]){
-					a1 = i;
-					break;
-				}
-				else if(reg1[2]>reg.d[0]){
-					return 0;
-				}
-			}
-			for(int i=0;i<3;i++){
-				if(reg1[i] <= reg.d[1] && i != a1){
-					b1 = i;
-					break;
-				}
-				else if(reg1[2]>reg.d[1]){
-					return 0;
-				}
-			}
-			for(int i=0;i<3;i++){
-				if(reg3[i]==reg1[a1]){
-					b = i;
-				}
-			}
-			for(int i=0;i<3;i++){
-				if(reg3[i]==reg1[b1] && i != b){
-					a = i;
-				}
-			}
-			if(a==0 && b==1)
-				ans = 1;
-			else if(a==0 && b==2)
-				ans = 2;
-			else if(a==1 && b==2)
-				ans = 3;
-			else if(a==2 && b==1)
-				ans = 4;
-		 	else if(a==2 && b==0)
-				ans = 5;
-			else if(a==1 && b==0)
-				ans = 6;
-			return ans;
 		}
 		//
-		void output(int ans,reg reg){
-			switch(ans){
-				case 0:
-					printf("洞寬 %d 洞長 %d <-- 長 %d 寬 %d 高 %d \n [不通過]\n",reg.d[0],reg.d[1],l,w,h);
-					break;
-				case 1:
-					printf("洞寬 %d 洞長 %d <-- 長 %d 寬 %d 高 %d \n [通過]\n",reg.d[0],reg.d[1],l,w,h);
-					break;
-				case 2:
-					printf("洞寬 %d 洞長 %d <-- 長 %d 高 %d 寬 %d \n [通過]\n",reg.d[0],reg.d[1],l,h,w);
-					break;
-				case 3:
-					printf("洞寬 %d 洞長 %d <-- 寬 %d 高 %d 長 %d \n [通過]\n",reg.d[0],reg.d[1],w,h,l);
-					break;
-				case 4:
-					printf("洞寬 %d 洞長 %d <-- 高 %d 寬 %d 長 %d \n [通過]\n",reg.d[0],reg.d[1],h,w,l);
-					break;
-				case 5:
-					printf("洞寬 %d 洞長 %d <-- 高 %d 長 %d 寬 %d \n [通過]\n",reg.d[0],reg.d[1],h,l,w);
-					break;
-				case 6:
-					printf("洞寬 %d 洞長 %d <-- 寬 %d 長 %d 高 %d \n [通過]\n",reg.d[0],reg.d[1],w,l,h);
-					break;
+		bool operator>(win1 &win){
+			if((data[0]<win.data[0])&&(data[1]<win.data[1]))
+				return 1;
+			else
+				return 0;
+		}
+		//
+		void output(bool ans,win1 win){
+			bool reg[2],reg1[3];
+			for(int i=0;i<2;i++){
+				if((win.data[i] == win.l)&&(reg[0] != 1)){
+					printf("洞長");
+					reg[0] = 1;
+				}
+				else if((win.data[i] == win.w)&&(reg[1] != 1)){
+					printf("洞寬");
+					reg[1] = 1;
+				}
+				printf(" %d ",win.data[i]);
 			}
-			return ;
+			printf("<-- ");
+			for(int i=0;i<3;i++){
+				if((data[i] == l)&&(reg1[0] != 1)){
+					printf("長");
+					reg1[0] = 1;
+				}
+				else if((data[i] == w)&&(reg1[1] != 1)){
+					printf("寬");
+					reg1[1] = 1;
+				}
+				else if((data[i] == h)&&(reg1[2] != 1)){
+					printf("高");
+					reg1[2] = 1;
+				}
+				printf(" %d ",data[i]);
+			}
+			if(ans == 1){
+				printf("\n [不通過]\n");
+			}
+			else{
+				printf("\n [通過]\n");
+			}	
 		}
 };
 
 
 int main(void){
-	reg reg1;
-	int ans;
-	int test;
 	win1 data1;
 	win2 data2;
 	//
 	data1.input();
-	reg1 = data1.add();
+	data1.add();
 	while(1){
-		test = data2.input();
-		if(test == 0){
+		if(data2.input() == 0){
 			break;
 		}
-		ans = data2.add(reg1);
-		data2.output(ans,reg1);
+		data2.add();
+		data2.output(data2>data1,data1);
 	}
 	
 	system("pause");
