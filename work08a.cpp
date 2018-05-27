@@ -31,7 +31,7 @@ class Circle : public point{
 		//
 		void output(void){
 			printf("Length = %lf\n",(radius*2*3.14159));
-			printf("Area = %lf\n",(radius*3.14159));
+			printf("Area = %lf\n",(radius*radius*3.14159));
 		}
 };
 
